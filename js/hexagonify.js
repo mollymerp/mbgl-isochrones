@@ -1,7 +1,9 @@
+// source: https://github.com/mapbox/isodist-bot 
+
 var concaveman = require('concaveman');
 var turf = require('turf');
 
-function hexagonify(feature, result, cell, units, triangles, concaveman, threshold) {
+function hexagonify(feature, result, cell, units, triangles, threshold) {
   if (feature.features) {
     for (var i = 0; i < feature.features.length; i++) {
       result = hexagonify(feature.features[i], result);

@@ -13,7 +13,6 @@
     "url": "git+ssh://git@github.com/mollymerp/mbgl-isochrones.git"
   },
   "author": "Molly Lloyd",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/mollymerp/mbgl-isochrones/issues"
   },
@@ -26,6 +25,7 @@
     "uglify-js": "^2.6.1"
   },
   "dependencies": {
+    "concaveman": "^1.1.0",
     "mapbox": "^1.0.0-beta",
     "mapbox-gl": "^0.16.0",
     "turf": "^2.0.2"
