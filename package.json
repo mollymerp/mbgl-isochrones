@@ -2,9 +2,11 @@
   "name": "isochrones",
   "version": "1.0.0",
   "description": "tool to generate isochrones for mapbox-gl",
-  "main": "index.js",
+  "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint --no-eslintrc -c .eslintrc js/index.js",
+    "start": "budo js/index.js --serve=bundle.js --live -d",
+    "build": "browserify js/index.js | uglifyjs -c -m > bundle.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,17 @@
   "bugs": {
     "url": "https://github.com/mollymerp/mbgl-isochrones/issues"
   },
-  "homepage": "https://github.com/mollymerp/mbgl-isochrones#readme"
+  "homepage": "https://github.com/mollymerp/mbgl-isochrones#readme",
+  "devDependencies": {
+    "brfs": "^1.4.1",
+    "browserify": "^12.0.1",
+    "budo": "^7.0.1",
+    "eslint": "^1.10.3",
+    "uglify-js": "^2.6.1"
+  },
+  "dependencies": {
+    "mapbox": "^1.0.0-beta",
+    "mapbox-gl": "^0.16.0",
+    "turf": "^2.0.2"
+  }
 }
