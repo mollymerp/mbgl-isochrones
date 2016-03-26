@@ -1,7 +1,6 @@
 const MapboxClient = require('mapbox');
 const turf = require('turf');
-const request = require('request');
-const hexagonify = require('./hexagonify');
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibW9sbHltZXJwIiwiYSI6ImNpbTZ0anJ4OTAwNnp1b20wODM5d3RocXQifQ.jbnZRtdaCjOV8jCV6AemBA';
 const mapboxClient = new MapboxClient(mapboxgl.accessToken);
@@ -22,7 +21,7 @@ function isochrone(origin, timelimit, resolution) {
   let valid_points = {};
   let radius = timelimit / 60 * 5;
   let net_grid = getNet(origin, radius, rotation_degrees);
-  getDurations(origin, net_grid)
+  return getDurations(origin, net_grid)
     .then(function(res) {
       let durations=[];
       if (res.code && res.code === "Ok") {
@@ -42,7 +41,8 @@ function isochrone(origin, timelimit, resolution) {
           to_hex.features.push(feat);
         }
       })
-      console.log(JSON.stringify(to_hex))
+      // console.log(turf.hexGrid(turf.extent(to_hex), .1, 'kilometers'));
+      return to_hex;
     })
 
 }
@@ -55,7 +55,6 @@ function getDurations(origin, net) {
     for (var i = 0; i < Math.ceil(net.features.length / 99); i++) {
       distance_calls.push([origin, ...net.features.slice(i * 99, (i + 1) * 99).map(pt => pt.geometry.coordinates)]);
     }
-    console.log(distance_calls);
     let calls = distance_calls.length;
     let promises = distance_calls.map(arr => mapboxClient.getDistances(arr, { profile: 'walking' }));
     return Promise.all(promises);
